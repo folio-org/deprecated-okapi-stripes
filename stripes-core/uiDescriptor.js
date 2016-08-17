@@ -7,9 +7,9 @@ var debug = 1;
 // xxx
 var result = [];
 
-function get_ui_modules(list, callback, tenant) {
+function get_ui_modules(list, func) {
    if (!list || list.length == 0) {
-       callback( tenant, result);
+       func( result);
        return;
    }
    
@@ -27,7 +27,7 @@ function get_ui_modules(list, callback, tenant) {
             if (debug) console.log("found non-module: " + obj.id)
          }
          
-         return get_ui_modules(list, callback, tenant);
+         return get_ui_modules(list, func);
       } else {
          console.log("HTTP status for " + url + " " + response.statusCode);
       }
@@ -45,14 +45,14 @@ function modules_list(modules) {
   return list;
 }
 
-function get_module_list(tenant, callback) {
+function get_module_list(func) {
   var url = "http://localhost:9130/_/proxy/tenants/" + tenant + "/modules";
   
   request(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
        var modules = JSON.parse(body);
        var list = modules_list(modules);
-       get_ui_modules(list, callback, tenant);
+       get_ui_modules(list, func);
        
     } else {
       console.log("HTTP status for " + url + " " + response.statusCode);
@@ -99,5 +99,5 @@ function webpack_service(tenant, modules) {
 
 
 // http://localhost:9130/_/proxy/tenants/$tenant/modules
-get_module_list(tenant, webpack_service);
+get_module_list( function (modules) { webpack_service(tenant, modules) } );
 
