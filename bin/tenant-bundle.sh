@@ -10,7 +10,7 @@ pwd=$(pwd)
 aws_url="http://s3.amazonaws.com/$aws_s3_path"
 
 : ${ui_url="https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz"}
-: ${stripes_branch="wolfram"}
+: ${stripes_branch=""}
 : ${stripes_tenant="wolfram"}
 : ${stripes_debug=false}
 
