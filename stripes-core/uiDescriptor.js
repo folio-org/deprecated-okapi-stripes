@@ -2,7 +2,38 @@ var request = require('request');
 
 var args = process.argv.slice(2);
 var tenant = args[0] || "demo";
-var debug = 0;
+var debug = 1;
+
+// xxx
+var result = [];
+
+function get_ui_modules(list, callback, tenant) {
+   if (!list || list.length == 0) {
+       callback( tenant, result);
+       return;
+   }
+   
+   var m = list.pop();
+   var url = "http://localhost:9130/_/proxy/modules/" + m;
+   
+   request(url, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+         var obj = JSON.parse(body);
+         // console.log(obj)
+         if (obj.uiDescriptor) {
+            result.push(obj.id);
+            if (debug) console.log("found ui module: " + obj.id)
+         } else {
+            if (debug) console.log("found non-module: " + obj.id)
+         }
+         
+         return get_ui_modules(list, callback, tenant);
+      } else {
+         console.log("HTTP status for " + url + " " + response.statusCode);
+      }
+   });
+}
+
 
 // return a simple module list 
 function modules_list(modules) {
@@ -21,7 +52,7 @@ function get_module_list(tenant, callback) {
     if (!error && response.statusCode == 200) {
        var modules = JSON.parse(body);
        var list = modules_list(modules);
-       callback(tenant, list);
+       get_ui_modules(list, callback, tenant);
        
     } else {
       console.log("HTTP status for " + url + " " + response.statusCode);
