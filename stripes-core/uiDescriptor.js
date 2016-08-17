@@ -1,7 +1,8 @@
 var request = require('request');
 
 var args = process.argv.slice(2);
-var tenant = args[0] || "test";
+var tenant = args[0] || "demo";
+var debug = 0;
 
 // return a simple module list 
 function modules_list(modules) {
@@ -53,13 +54,14 @@ function webpack_service(tenant, modules) {
       body: body
   }
 
-  // console.log(options);
+  if (debug >= 2) console.log(options);
   
   request(options, function (error, response, body) {
-    if (!error && response.statusCode == 201) {
+    if (!error && response && response.statusCode == 201) {
       console.log(response.headers.location)
     } else {
-      console.log("HTTP status for " + url + " " + response.statusCode);
+      var status = response ? response.statusCode : "unknown";
+      console.log("HTTP status for " + url + " " + status);
     }
   })
 }
