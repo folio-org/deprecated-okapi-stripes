@@ -54,6 +54,8 @@ function get_module_list(func) {
         if (!error && response.statusCode == 200) {
             var modules = JSON.parse(body);
             var list = modules_list(modules);
+            
+            // filter by ui modules
             get_ui_modules(list, func);
 
         } else {
@@ -94,8 +96,11 @@ function webpack_service(tenant, modules) {
         if (!error && response && response.statusCode == 201) {
             console.log(response.headers.location)
         } else {
-            var status = response ? response.statusCode : "unknown";
-            console.log("HTTP status for " + url + " " + status);
+            if (response) {
+              console.log("HTTP status for " + url + " " + response.statusCode);
+            } else {
+              console.warn("No response, was the service on " + options.url + " started?")
+            }
         }
     })
 }
