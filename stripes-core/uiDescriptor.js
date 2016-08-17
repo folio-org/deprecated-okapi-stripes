@@ -21,10 +21,10 @@ function get_ui_modules(list, func) {
             var obj = JSON.parse(body);
             // console.log(obj)
             if (obj.uiDescriptor) {
-                result.push(obj.id);
-                if (debug) console.log("found ui module: " + obj.id)
+                result.push(obj.uiDescriptor.url);
+                if (debug) console.log("found ui module: " + obj.uiDescriptor.url)
             } else {
-                if (debug) console.log("found non-module: " + obj.id)
+                if (debug) console.log("found non-module: " + obj.uiDescriptor.url)
             }
 
             return get_ui_modules(list, func);
