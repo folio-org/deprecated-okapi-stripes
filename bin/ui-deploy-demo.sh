@@ -7,13 +7,13 @@
 #
 # create two tenants, with ui and non-ui modules
 #
-# $ tenant="demo" modules_ui="patrons" modules="trivial trivial-okapi" ./ui-deploy-demo.sh
+# $ tenant="demo" modules_ui="patrons https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz" modules="trivial trivial-okapi" ./ui-deploy-demo.sh
 #
 
 #set -e
 
 : ${tenant="demo"}
-: ${modules_ui="patrons"}
+: ${modules_ui="patrons https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz"}
 : ${modules="trivial trivial-okapi"}
 curl='curl -sSf'
 
@@ -43,20 +43,22 @@ $curl -w '\n' -X POST -D - \
 #
 for module in $modules_ui
 do
+    id=$(basename $module .tgz)
         
     # trivial module
     cat > $module_json <<END
 {
-  "id" : "$module",
-  "name" : "$module",
+  "id" : "$id",
+  "name" : "$id",
   "uiDescriptor" : {
-     "npm" : "$module"
+     "npm" : "$module",
+     "url" : "$module"
   }
 }
 END
 
     echo ""
-    echo "==> Create module '$module'"
+    echo "==> Create module '$id'"
     $curl -w '\n' -X POST -D - \
       -H "Content-type: application/json" \
       -d @$module_json  \
@@ -66,19 +68,19 @@ END
     tenant_enable_json=$(mktemp)
     cat > $tenant_enable_json <<END
 {
-  "id" : "$module"
+  "id" : "$id"
 }
 END
 
     echo ""
-    echo "==> Enable ui module '$module' for tenant '$tenant'"
+    echo "==> Enable ui module '$id' for tenant '$tenant'"
     $curl -w '\n' -X POST -D - \
       -H "Content-type: application/json" \
       -d @$tenant_enable_json  \
       http://localhost:9130/_/proxy/tenants/$tenant/modules
   
     # get full info for trivial (repeat for each one returned above)
-    $curl -w '\n' -D - http://localhost:9130/_/proxy/modules/$module
+    $curl -w '\n' -D - http://localhost:9130/_/proxy/modules/$id
 done
 
 ########################################
@@ -106,7 +108,7 @@ END
     tenant_enable_json=$(mktemp)
   cat > $tenant_enable_json <<END
 {
-  "id" : "$module"
+  "id" : "$id"
 }
 END
 
@@ -131,7 +133,7 @@ echo ""
 for module in $($curl -w '\n' -D - http://localhost:9130/_/proxy/tenants/$tenant/modules |
     egrep '"id"' |awk '{print $3}' | sed -e 's/"//g')
 do
-    curl -w '\n'  http://localhost:9130/_/proxy/modules/$module
+    $curl -w '\n'  http://localhost:9130/_/proxy/modules/$module
 done
     
 
