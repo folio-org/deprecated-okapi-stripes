@@ -96,7 +96,7 @@ if [ -d "$pwd/stripes-core/node_modules" ]; then
 fi
 
 #./bin/install.sh
-env interactive="" ./bin/install-nexus.sh
+env interactive="" ./bin/install.sh
 
 cd stripes-core && npm run build:tenant
 

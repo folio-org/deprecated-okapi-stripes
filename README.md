@@ -52,7 +52,7 @@ $ brew install awscli
 
 run a local installation (see the readme above)
 ```
-$ ./bin/install-nexus.sh
+$ ./bin/install.sh
 ```
 
 start webpack service on port 3030
