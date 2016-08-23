@@ -117,6 +117,11 @@ Create a tenant "test", and assign 2 UI modules:
 $ tenant=test module="trivial trivial-okapi" ./bin/ui-deploy.sh
 ```
 
+Create a tenant "demo", assign 2 modules and 2 UI modules
+
+```
+$ tenant="demo" modules_ui="patrons https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz" modules="trivial trivial-okapi" ./ui-deploy-demo.sh
+```
 
 ## Note for OS without symlinks (MS Windows): 
 
