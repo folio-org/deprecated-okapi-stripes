@@ -47,7 +47,7 @@
     "redbox-react": "^1.2.10",
     "rimraf": "^2.5.3",
     "sass-loader": "^4.0.0",
-    "stripes-loader":"git+ssh://git@github.com/sling-incubator/stripes-loader.git",
+    "stripes-loader":"git+ssh://git@github.com/folio-org/stripes-loader.git",
 
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1",

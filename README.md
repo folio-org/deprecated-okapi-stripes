@@ -2,7 +2,7 @@
 
 ## Installation
 
-$ git clone ssh://git@github.com/sling-incubator/okapi-stripes
+$ git clone ssh://git@github.com/folio-org/okapi-stripes
 
 Note: node.js version 6.x is required for running stripes-experiments. Older node.js 
 versions are likely to fail due changes in react/redux
