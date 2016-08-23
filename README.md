@@ -121,6 +121,15 @@ Create a tenant "demo", assign 2 modules and 2 UI modules
 $ tenant="demo" modules_ui="patrons https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz" modules="trivial trivial-okapi" ./ui-deploy-demo.sh
 ```
 
+
+Create a bundle for UI modules for tenant "demo"
+```
+$ node stripes-core/uiDescriptor.js demo 
+found ui module: https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz
+found ui module: patrons
+```
+
+
 ## Note for OS without symlinks (MS Windows): 
 
   For installing on an OS that does not support symbolic links,
