@@ -10,7 +10,6 @@ app.use(bodyParser.json());
 
 const path = require('path')
 
-var asyncblock = require('asyncblock');
 var exec = require('child_process').exec;
 
 var cache = {};
@@ -93,16 +92,16 @@ function myapp (type, req, res) {
     return res.send(JSON.stringify({status: 503, message: 'missing url parameter' }));
   }
   
-  asyncblock(function (flow) {
-    // exec('node -v', flow.add());
-    var command = 'env stripes_tenant="' + tenant + '"' + ' ui_url="' + ui_url;
-    command += '" ./bin/tenant-bundle.sh';
-    
-    if (debug >= 1) {
-        console.log("Run shell command: " + command)
-    }
+  var command = 'env stripes_tenant="' + tenant + '"' + ' ui_url="' + ui_url;
+  command += '" ./bin/tenant-bundle.sh';
+  
+  if (debug >= 1) {
+    console.log("Run shell command: " + command)
+  }
+  
+  exec(command,  (error, stdout, stderr) => {
 
-    flow.errorCallback = function(error) {
+    if (error) {
         console.log(error)
         return res.send(JSON.stringify({status: 503, message: 'webpack exit with non-zero status' }));
     };
@@ -112,22 +111,15 @@ function myapp (type, req, res) {
       console.log('UI module: ' + JSON.stringify(cleanup_list(req[method].url)))
     }
     
-    exec(command, flow.add());
-    result = flow.wait();
-    
     if (debug >= 1) {
       console.log("Webpack script is done");
     }
     
     if (debug >= 2) {
-      console.log(result);    // There'll be trailing \n in the output
+      console.log(stdout);    // There'll be trailing \n in the output
     }
 
-    // Some other jobs
-    // console.log('More results like if it were sync...');
-    // cache[id_tag] = result;
-
-    var lines = result.split("\n");
+    var lines = stdout.split("\n");
     lines.pop(); // newline
     var url = lines.pop();
     

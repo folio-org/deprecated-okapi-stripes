@@ -16,7 +16,6 @@
     "lint": "eslint src"
   },
   "devDependencies": {
-    "asyncblock": "2.2.8",
     "body-parser": "1.15.2",
 
     "babel": "^6.5.2",
