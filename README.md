@@ -43,12 +43,12 @@ $ ./bin/install.sh
 
 start webpack service on port 3030
 ```
-cd stripes-core && npm run start:webpack 
+$ node stripes-core/webpackServer.js 
 ```
 
 open web form to generate folio UI bundle
 ```
-$ open http://localhost:3030
+open http://localhost:3030
 ```
 and fill out the forms, and press submit
 
