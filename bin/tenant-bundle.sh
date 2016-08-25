@@ -3,7 +3,7 @@
 set -e
 pwd=$(pwd)
 
-#github_url="ssh://git@github.com/sling-incubator/stripes-experiments"
+#github_url="ssh://git@github.com/folio-org/stripes-experiments"
 : ${github_url="$(pwd)"} 
 
 : ${aws_s3_path="folio-ui-bundle/tenant"}
