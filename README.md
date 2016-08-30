@@ -1,4 +1,4 @@
-# Stripes Experiments
+# okapi-stripes
 
 ## Installation
 
