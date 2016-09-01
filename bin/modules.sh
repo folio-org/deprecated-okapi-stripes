@@ -1,13 +1,14 @@
 #!/bin/sh
 
+pwd=$(pwd)
 data=""
 for module in $@
 do
-    m=$(basename $module ".tgz")
+    m=$pwd/$(basename $module ".tgz")
     if [ -z "$data" ]; then
-	data="'@folio-sample-modules/$m': {}"
+	data="'$m': {}"
     else
-	data=$(printf "$data,\n\t%s" "'@folio-sample-modules/$m': {}")
+	data=$(printf "$data,\n\t%s" "'$m': {}")
     fi
 done
 
