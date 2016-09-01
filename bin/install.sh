@@ -26,7 +26,6 @@ npm install
 
 if [ "$interactive" = "yes" ]; then
     echo ""
-    echo "now start the webpack service with: node js/webpackServer.js"
+    echo "now start the webpack service with: node src/webpackServer.js"
 fi
-#echo "( cd stripes-core && npm run start:webpack )"
 
