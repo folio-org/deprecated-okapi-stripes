@@ -35,7 +35,7 @@ $ brew install awscli
 
 ## Webpack service
 
-run a local installation (see the readme above)
+run a local installation (see the readme above) in ./okapi-stripes
 ```
 $ ./bin/install.sh
 ```
