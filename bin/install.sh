@@ -11,11 +11,18 @@ stripes_repo=$(pwd)/../stripes-experiments
 npm config set @folio:registry https://folio-nexus.indexdata.com/repository/npm-folio/
 npm config set @folio-sample-modules:registry https://folio-nexus.indexdata.com/repository/npm-folio/
 
+
+# okaip-stripes
+npm install
+
+
+# stripes-experiments
 (
 cd $stripes_repo
 cd stripes-core
 npm install
 )
+
 
 if [ "$interactive" = "yes" ]; then
     echo ""
