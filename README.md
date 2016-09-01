@@ -85,7 +85,7 @@ or more Okapi style with a post request:
 
 ```
 $ cat etc/post.json
-{"url":["trivial", "https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz"] }
+{"url":["trivial", "https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz"] }
 ```
     
 ```
