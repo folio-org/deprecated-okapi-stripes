@@ -7,7 +7,7 @@ do
     if [ -z "$data" ]; then
 	data="'@folio-sample-modules/$m': {}"
     else
-	data=$(printf "$data,\n\t%s" "'@stripes-experiments/$m': {}")
+	data=$(printf "$data,\n\t%s" "'@folio-sample-modules/$m': {}")
     fi
 done
 
