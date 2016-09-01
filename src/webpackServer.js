@@ -18,7 +18,7 @@ var debug = 1;
 
 app.get('/', function (req, res) {
   // res.send("Please use http://localhost:" + port + "/bundle?tenant=tenant&url=module1&url=module2 ...\n");
-  res.sendFile( path.resolve('./stripes-core/webpack.html'))
+  res.sendFile( path.resolve('./www/webpack.html'))
 });
 
 app.get('/readme.html', function (req, res) {
@@ -40,7 +40,7 @@ app.get('/readme.md', function (req, res) {
 
 app.get('/favicon.ico', function (req, res) {
   res.contentType("image/png");
-  res.sendFile( path.resolve('./stripes-core/favicon.ico'))
+  res.sendFile( path.resolve('./www/favicon.ico'))
 });
 
 
