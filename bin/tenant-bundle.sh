@@ -2,9 +2,10 @@
 
 set -e
 pwd=$(pwd)
+pwd_se="$(pwd)/../stripes-experiments"
 
 #github_url="ssh://git@github.com/folio-org/stripes-experiments"
-: ${github_url="$(pwd)"} 
+: ${github_url="$pwd_se"} 
 
 : ${aws_s3_path="folio-ui-bundle/tenant"}
 aws_url="http://s3.amazonaws.com/$aws_s3_path"
@@ -50,11 +51,11 @@ bundle_dir="$stripes_tenant-$time"
 cd stripes-core
 rm -rf $bundle_dir
 mkdir $bundle_dir
-cp favicon.ico  $bundle_dir
+#cp favicon.ico  $bundle_dir
 )
 
 
-./bin/modules.sh $ui_url > stripes-core/webpack.config.tenant.js
+$pwd/bin/modules.sh $ui_url > stripes-core/webpack.config.tenant.js
 
 # GNU tar needs special options
 if tar --help| egrep -w -- --wildcards >/dev/null; then
@@ -68,9 +69,9 @@ fi
 for url in $ui_url
 do 
     # a directory, just copy
-    if [ -d "$pwd/$url" ]; then
+    if [ -d "$url" ]; then
         if echo $url | egrep -q -i '^[a-z0-9_-]+$'; then
-            rsync -a "$pwd/$url" .
+            #rsync -a "$pwd/$url" .
             (cd $(basename $url) && pwd && npm install )
         else
             echo "illegal directory path: [A-Za-z0-9_-]: $url"
@@ -91,12 +92,12 @@ do
 done
 
 # re-use installed node_modules
-if [ -d "$pwd/stripes-core/node_modules" ]; then
-    rsync -a "$pwd/stripes-core/node_modules" stripes-core
+if [ -d "$pwd_se/stripes-core/node_modules" ]; then
+    rsync -a "$pwd_se/stripes-core/node_modules" stripes-core
 fi
 
 #./bin/install.sh
-env interactive="" ./bin/install.sh
+env interactive="" $pwd/bin/install.sh
 
 cd stripes-core && npm run build:tenant
 
