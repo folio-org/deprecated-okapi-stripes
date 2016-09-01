@@ -99,7 +99,9 @@ fi
 #./bin/install.sh
 env interactive="" $pwd/bin/install.sh
 
-cd stripes-core && npm run build:tenant
+cd stripes-core
+cp $pwd/src/webpack.config.cli.tenant.js .
+npm run build:tenant
 
 cp index.html $bundle_dir
 rsync -a static $bundle_dir
