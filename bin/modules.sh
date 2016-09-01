@@ -5,7 +5,7 @@ for module in $@
 do
     m=$(basename $module ".tgz")
     if [ -z "$data" ]; then
-	data="'@stripes-experiments/$m': {}"
+	data="'@folio-sample-modules/$m': {}"
     else
 	data=$(printf "$data,\n\t%s" "'@stripes-experiments/$m': {}")
     fi
