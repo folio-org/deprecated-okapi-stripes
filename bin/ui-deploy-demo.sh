@@ -13,8 +13,8 @@
 #set -e
 
 : ${tenant="demo"}
-: ${modules_ui="patrons https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz"}
-: ${modules="trivial trivial-okapi"}
+: ${modules_ui="patrons https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz"}
+: ${modules="trivial"}
 curl='curl -sSf'
 
 module_json=$(mktemp)
