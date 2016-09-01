@@ -9,9 +9,9 @@ pwd=$(pwd)
 : ${aws_s3_path="folio-ui-bundle/tenant"}
 aws_url="http://s3.amazonaws.com/$aws_s3_path"
 
-: ${ui_url="https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz"}
+: ${ui_url="https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz"}
 : ${stripes_branch=""}
-: ${stripes_tenant="wolfram"}
+: ${stripes_tenant="carl"}
 : ${stripes_debug=false}
 
 
