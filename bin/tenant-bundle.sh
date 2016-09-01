@@ -54,8 +54,10 @@ mkdir $bundle_dir
 #cp favicon.ico  $bundle_dir
 )
 
+mkdir -p dev
 
-$pwd/bin/modules.sh $ui_url > stripes-core/webpack.config.tenant.js
+( cd dev 
+$pwd/bin/modules.sh $ui_url ) > stripes-core/webpack.config.tenant.js
 
 # GNU tar needs special options
 if tar --help| egrep -w -- --wildcards >/dev/null; then
@@ -71,7 +73,7 @@ do
     # a directory, just copy
     if [ -d "$url" ]; then
         if echo $url | egrep -q -i '^[a-z0-9_-]+$'; then
-            #rsync -a "$pwd/$url" .
+            rsync -a $url dev
             (cd $(basename $url) && pwd && npm install )
         else
             echo "illegal directory path: [A-Za-z0-9_-]: $url"
@@ -81,9 +83,11 @@ do
     # fetch from web site
     else
         if echo $url | egrep -q -i '^https?://[a-z0-9]+\S+$'; then
+            ( cd dev
             wget -q $url
             tar $tar_opt -xzf $(basename $url) '[a-zA-Z0-9]*'
             (cd $(basename $url .tgz) && npm install )
+            )
         else
             echo "illegal URL: $url"
             exit 1
