@@ -42,7 +42,7 @@ $ ./bin/install.sh
 
 start webpack service on port 3030
 ```
-$ node stripes-core/webpackServer.js 
+$ node src/webpackServer.js 
 ```
 
 open web form to generate folio UI bundle
@@ -55,7 +55,7 @@ and fill out the forms, and press submit
 ## Example run with GET (browser)
 
 ```
-$ node stripes-core/webpackServer.js
+$ node src/webpackServer.js
 ```
 
 ```
@@ -125,7 +125,7 @@ $ tenant="demo" modules_ui="patrons https://s3.amazonaws.com/folio-ui-bundle/tar
 
 Create a bundle for UI modules for tenant "demo"
 ```
-$ node stripes-core/uiDescriptor.js demo 
+$ node src/uiDescriptor.js demo 
 found ui module: https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz
 found ui module: patrons
 ```
