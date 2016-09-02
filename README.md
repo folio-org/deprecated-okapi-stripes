@@ -135,6 +135,15 @@ found ui module: https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfra
 found ui module: patrons
 ```
 
+## Troubleshooting
+
+To cleanup local npm modules, run:
+
+```
+$ ./bin/clean.sh
+```
+
+
 --
 Index Data, Aug 2016
 
