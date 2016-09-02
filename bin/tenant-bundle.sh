@@ -74,7 +74,7 @@ do
     if [ -d "$url" ]; then
         if echo $url | egrep -q -i '^[a-z0-9_-]+$'; then
             rsync -a $url dev
-            (cd $(basename $url) && pwd && npm install )
+            ( cd $(basename $url) && pwd && npm install )
         else
             echo "illegal directory path: [A-Za-z0-9_-]: $url"
             exit 1
@@ -100,11 +100,9 @@ if [ -d "$pwd_se/stripes-core/node_modules" ]; then
     rsync -a "$pwd_se/stripes-core/node_modules" stripes-core
 fi
 
-#./bin/install.sh
-env interactive="" $pwd/bin/install.sh
-
 cd stripes-core
 cp $pwd/src/webpack.config.cli.tenant.js .
+npm install
 npm run build:tenant
 
 cp index.html $bundle_dir
