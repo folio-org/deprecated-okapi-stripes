@@ -12,6 +12,8 @@ Okapi integrated service that generates static UI assets (JS/HTML/CSS) from Stri
 
 ## Installation
 
+First, you have to checkout the ```okapi-stripes``` repo from github:
+
 $ git clone ssh://git@github.com/folio-org/okapi-stripes
 $ git clone ssh://git@github.com/folio-org/stripes-experiments
 
