@@ -20,6 +20,9 @@ $ git clone ssh://git@github.com/folio-org/stripes-experiments
 Note: node.js version 6.x is required for running stripes-experiments. Older node.js 
 versions are likely to fail due changes in react/redux
 
+Please use npm version 3.x or higher. The older npm 2.x is much slower and downloads
+much more files.
+
 ### macos
 ```
 $ brew install node
