@@ -1,0 +1,22 @@
+language: node_js 
+sudo: required
+
+node_js:
+  - "6"
+
+addons:
+ apt:
+  packages:
+   - curl
+   - git 
+   - make 
+   - wget 
+
+before_install:
+  - git clone --depth=50 --branch=master https://github.com/folio-org/stripes-experiments
+  - ln -fs . okapi-stripes
+
+script:
+ - cd okapi-stripes && ./bin/install.sh
+ - cd okapi-stripes && env stripes_awscli=false stripes_tenant="test" ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-carl.tgz" ./bin/tenant-bundle.sh
+
