@@ -1,0 +1,22 @@
+language: node_js 
+sudo: required
+
+node_js:
+  - "6"
+
+addons:
+ apt:
+  packages:
+   - awscli
+   - curl
+   - git 
+   - make 
+   - wget 
+
+before_install:
+  - git clone --depth=50 --branch=master https://github.com/folio-org/stripes-experiments
+  - ln -fs okapi-stripes .
+
+script:
+ - cd okapi-stripes && ./bin/install.sh
+
