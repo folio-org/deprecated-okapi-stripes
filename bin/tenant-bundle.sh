@@ -14,6 +14,7 @@ aws_url="http://s3.amazonaws.com/$aws_s3_path"
 : ${stripes_branch=""}
 : ${stripes_tenant="carl"}
 : ${stripes_debug=false}
+: ${stripes_awscli=true}
 
 
 echo "node version: $(node --version)"
@@ -108,11 +109,16 @@ npm run build:tenant
 cp index.html $bundle_dir
 rsync -a static $bundle_dir
 
-if aws s3 sync --quiet $bundle_dir s3://$aws_s3_path/$bundle_dir; then
-    echo $aws_url/$bundle_dir/index.html
-else
-    echo "Upload to $aws_url failed, please check your ~/.aws setup"
-    exit 1
+if ! $stripes_awscli; then
+    echo "No AWS S3 upload, see $(pwd)/$bundle_dir/index.html"
+    exit
+else 
+    if aws s3 sync --quiet $bundle_dir s3://$aws_s3_path/$bundle_dir; then
+        echo $aws_url/$bundle_dir/index.html
+    else
+    	echo "Upload to $aws_url failed, please check your ~/.aws setup"
+    	exit 1
+    fi
 fi
 
 # cleanup temp space
