@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# ui-deploy - creates a tenant, some Folio UI modules and
+# ui-deploy - creates a tenant, some FOLIO UI modules and
 #             assign the modules to the tenant
 #
 # e.g.:
