@@ -164,6 +164,12 @@ To cleanup local npm modules, run:
 $ ./bin/clean.sh
 ```
 
+## Additional information
+
+See [stripes-experiments](https://github.com/folio-org/stripes-experiments).
+
+Other FOLIO Developer documentation is at [dev.folio.org](http://dev.folio.org/)
+
 
 --
 Index Data, Aug 2016
