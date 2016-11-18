@@ -30,11 +30,15 @@ cat > $tenant_json <<END
 }
 END
 
-echo "==> Create tenant '$tenant'"
-$curl -w '\n' -X POST -D - \
-  -H "Content-type: application/json" \
-  -d @$tenant_json \
-  http://localhost:9130/_/proxy/tenants
+if $curl http://localhost:9130/_/proxy/tenants | egrep -q "\"id\" : \"$tenant\",\$"; then
+    echo "tenant $tenant already exits, skip creation"
+else
+    echo "==> Create tenant '$tenant'"
+    $curl -w '\n' -X POST -D - \
+      -H "Content-type: application/json" \
+      -d @$tenant_json \
+      http://localhost:9130/_/proxy/tenants
+fi
 
 
 ########################################
@@ -104,5 +108,13 @@ done
 echo ""
 echo "==> List modules for '$tenant'"
 $curl -w '\n' -D - http://localhost:9130/_/proxy/tenants/$tenant/modules
+
+# show module config
+echo ""
+for module in $($curl -w '\n' -D - http://localhost:9130/_/proxy/tenants/$tenant/modules |
+    egrep '"id"' |awk '{print $3}' | sed -e 's/"//g')
+do
+    $curl -w '\n'  http://localhost:9130/_/proxy/modules/$module
+done
 
 rm -f $module_json $tenant_json $tenant_enable_json
