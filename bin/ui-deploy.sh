@@ -78,30 +78,35 @@ END
 END
     fi
 
-    echo ""
-    echo "==> Create module '$module'"
-    $curl -w '\n' -X POST -D - \
-      -H "Content-type: application/json" \
-      -d @$module_json  \
-      http://localhost:9130/_/proxy/modules
-  
-    # Enable tenant
-    tenant_enable_json=$(mktemp)
-    cat > $tenant_enable_json <<END
+    if $curl http://localhost:9130/_/proxy/modules | egrep -q "\"id\" : \"$id\",\$"; then
+        echo "module $id already exits, skip creation"
+    else
+        echo ""
+        echo "==> Create module '$module'"
+        $curl -w '\n' -X POST -D - \
+          -H "Content-type: application/json" \
+          -d @$module_json  \
+          http://localhost:9130/_/proxy/modules
+      
+        # Enable tenant
+        tenant_enable_json=$(mktemp)
+        cat > $tenant_enable_json <<END
 {
   "id" : "$id"
 }
 END
 
-    echo ""
-    echo "==> Enable module '$id' for tenant '$tenant'"
-    $curl -w '\n' -X POST -D - \
-      -H "Content-type: application/json" \
-      -d @$tenant_enable_json  \
-      http://localhost:9130/_/proxy/tenants/$tenant/modules
-  
-    # get full info for trivial (repeat for each one returned above)
-    $curl -w '\n' -D - http://localhost:9130/_/proxy/modules/$id
+        echo ""
+        echo "==> Enable module '$id' for tenant '$tenant'"
+        $curl -w '\n' -X POST -D - \
+          -H "Content-type: application/json" \
+          -d @$tenant_enable_json  \
+          http://localhost:9130/_/proxy/tenants/$tenant/modules
+      
+        # get full info for trivial (repeat for each one returned above)
+        $curl -w '\n' -D - http://localhost:9130/_/proxy/modules/$id
+    fi
+
 done
 
 # get list of enabled modules for tenant
