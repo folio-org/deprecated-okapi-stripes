@@ -111,7 +111,7 @@ done
 
 # get list of enabled modules for tenant
 echo ""
-echo "==> List modules for '$tenant'"
+echo "==> List modules for tenant '$tenant'"
 $curl -w '\n' -D - http://localhost:9130/_/proxy/tenants/$tenant/modules
 
 # show module config
