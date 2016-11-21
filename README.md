@@ -136,6 +136,9 @@ access to a local running okapi instance on localhost:9130
 
 ## uiDescriptor
 
+Note: to run the following examples, an okapi service must be running
+on the same machine: ```cd okapi; mvn install; mvn exec:exec'''
+
 Create a tenant "test", and assign 2 UI modules:
 
 ```
@@ -172,5 +175,5 @@ Other FOLIO Developer documentation is at [dev.folio.org](http://dev.folio.org/)
 
 
 --
-Index Data, Aug 2016
+Index Data, Nov 2016
 
