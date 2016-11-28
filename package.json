@@ -4,6 +4,7 @@
   "description": "webpack service",
   "main": "index.js",
   "dependencies": {
+    "@folio/stripes-core": "*",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "markdown-it": "7.0.1"
