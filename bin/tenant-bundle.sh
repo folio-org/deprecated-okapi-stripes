@@ -2,7 +2,8 @@
 
 set -e
 pwd=$(pwd)
-pwd_se="$(pwd)/../stripes-experiments"
+#pwd_se="$(pwd)/../stripes-core"
+pwd_se="$(pwd)"
 
 #github_url="ssh://git@github.com/folio-org/stripes-experiments"
 : ${github_url="$pwd_se"} 
@@ -10,7 +11,8 @@ pwd_se="$(pwd)/../stripes-experiments"
 : ${aws_s3_path="folio-ui-bundle/tenant"}
 aws_url="http://s3.amazonaws.com/$aws_s3_path"
 
-: ${ui_url="https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz"}
+#: ${ui_url="https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz"}
+: ${ui_url="@folio-sample-modules/trivial"}
 : ${stripes_branch=""}
 : ${stripes_tenant="carl"}
 : ${stripes_debug=false}
@@ -20,19 +22,19 @@ aws_url="http://s3.amazonaws.com/$aws_s3_path"
 echo "node version: $(node --version)"
 echo "npm  version: $(npm --version)"
 
-tmp=/tmp
-if [ -n "$TMPDIR" ]; then
-    tmp=$TMPDIR
-fi
-dir=$(mktemp -d $tmp/stripe.XXXXXXXX)
-
-cd $dir
-pwd 
-if [[ $(uname -s) =~ CYGWIN.* ]]; then
-    github_url="${github_url/\//\\}"
-fi
-git clone -q "$github_url"
-cd $(basename "$github_url")
+#tmp=/tmp
+#if [ -n "$TMPDIR" ]; then
+#    tmp=$TMPDIR
+#fi
+#dir=$(mktemp -d $tmp/stripe.XXXXXXXX)
+#
+#cd $dir
+#pwd 
+#if [[ $(uname -s) =~ CYGWIN.* ]]; then
+#    github_url="${github_url/\//\\}"
+#fi
+#git clone -q "$github_url"
+#cd $(basename "$github_url")
 
 if [ -n "$stripes_branch" ]; then
     if ! git branch | egrep -q $stripes_branch; then
@@ -48,17 +50,18 @@ fi
 time=$(date '+%s')
 bundle_dir="$stripes_tenant-$time"
 
-( 
-cd stripes-core
-rm -rf $bundle_dir
+#(
+#pwd
+#cd ../stripes-core
+#rm -rf $bundle_dir
 mkdir $bundle_dir
-#cp favicon.ico  $bundle_dir
-)
+##cp favicon.ico  $bundle_dir
+#)
 
 mkdir -p dev
 
-( cd dev 
-$pwd/bin/modules.sh $ui_url ) > stripes-core/webpack.config.tenant.js
+#( cd dev $pwd/bin/modules.sh $ui_url ) > webpack.config.tenant.js
+$pwd/bin/modules.sh $ui_url  > stripes.config.js 
 
 # GNU tar needs special options
 if tar --help| egrep -w -- --wildcards >/dev/null; then
@@ -90,19 +93,24 @@ do
             (cd $(basename $url .tgz) && npm install )
             )
         else
-            echo "illegal URL: $url"
-            exit 1
+            if echo $url | egrep -q -i '^@folio-'; then
+                :
+            else
+                echo "illegal URL: $url"
+                exit 1
+            fi
         fi
     fi
 done
 
-# re-use installed node_modules
-if [ -d "$pwd_se/stripes-core/node_modules" ]; then
-    rsync -a "$pwd_se/stripes-core/node_modules" stripes-core
-fi
+## re-use installed node_modules
+#if [ -d "$pwd_se/stripes-core/node_modules" ]; then
+#    rsync -a "$pwd_se/stripes-core/node_modules" stripes-core
+#fi
+#
+#cd stripes-core
+#cp $pwd/src/webpack.config.cli.tenant.js .
 
-cd stripes-core
-cp $pwd/src/webpack.config.cli.tenant.js .
 npm install
 npm run build:tenant
 
