@@ -6,7 +6,7 @@ const webpack = require('webpack');
 
 let stripesLoaderConfig;
 try {
-  stripesLoaderConfig = require('./stripes.config.js');
+  stripesLoaderConfig = require('./dev/stripes.config.js');
 } catch (err) {
   if (err.message.match(/Cannot find module/)) {
     console.log('Can\'t find "stripes.config.js", using "stripes.config.js.example"');
