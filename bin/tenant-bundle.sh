@@ -94,7 +94,7 @@ do
             )
         else
             if echo $url | egrep -q -i '^@folio-'; then
-                :
+                npm install $url
             else
                 echo "illegal URL: $url"
                 exit 1
