@@ -114,7 +114,7 @@ done
 npm install
 npm run build:tenant
 
-cp index.html $bundle_dir
+cp www/index.html $bundle_dir
 rsync -a static $bundle_dir
 
 if ! $stripes_awscli; then
