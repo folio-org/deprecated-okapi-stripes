@@ -49,19 +49,13 @@ fi
 
 time=$(date '+%s')
 bundle_dir="$stripes_tenant-$time"
+bundle_path="dev/$bundle_dir"
 
-#(
-#pwd
-#cd ../stripes-core
-#rm -rf $bundle_dir
-mkdir $bundle_dir
-##cp favicon.ico  $bundle_dir
-#)
-
+rm -rf dev
 mkdir -p dev
+mkdir $bundle_path
 
-#( cd dev $pwd/bin/modules.sh $ui_url ) > webpack.config.tenant.js
-$pwd/bin/modules.sh $ui_url  > stripes.config.js 
+( cd dev; $pwd/bin/modules.sh $ui_url  > stripes.config.js )
 
 # GNU tar needs special options
 if tar --help| egrep -w -- --wildcards >/dev/null; then
@@ -114,14 +108,14 @@ done
 npm install
 npm run build:tenant
 
-cp www/index.html $bundle_dir
-rsync -a static $bundle_dir
+cp www/index.html $bundle_path
+rsync -a static $bundle_path
 
 if ! $stripes_awscli; then
-    echo "No AWS S3 upload, see $(pwd)/$bundle_dir/index.html"
+    echo "No AWS S3 upload, see $(pwd)/$bundle_path/index.html"
     exit
 else 
-    if aws s3 sync --quiet $bundle_dir s3://$aws_s3_path/$bundle_dir; then
+    if aws s3 sync --quiet $bundle_path s3://$aws_s3_path/$bundle_dir; then
         echo $aws_url/$bundle_dir/index.html
     else
     	echo "Upload to $aws_url failed, please check your ~/.aws setup"
