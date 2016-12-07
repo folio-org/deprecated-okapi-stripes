@@ -4,7 +4,7 @@ var request = require('request');
 
 var args = process.argv.slice(2);
 var tenant = args[0] || "demo";
-var debug = 1;
+var debug = 2;
 
 // xxx
 var result = [];
@@ -25,8 +25,10 @@ function get_ui_modules(list, func) {
             var obj = JSON.parse(body);
             // console.log(obj)
             if (obj.uiDescriptor) {
-                result.push(obj.uiDescriptor.url);
-                if (debug) console.log("found ui module: " + obj.name)
+                var u = obj.uiDescriptor.url ? obj.uiDescriptor.url : obj.uiDescriptor.npm;
+                
+                result.push(u);
+                if (debug) console.log("found ui module: " + obj.name + " uri: " + u)
             } else {
                 if (debug) console.log("found non-module: " + obj.name)
             }
