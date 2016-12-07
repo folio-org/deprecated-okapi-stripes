@@ -17,6 +17,8 @@ function get_ui_modules(list, func) {
 
     var m = list.pop();
     var url = "http://localhost:9130/_/proxy/modules/" + m;
+    // curl http://localhost:9130/_/proxy/modules/folio-sample-modules-trivial
+    // curl http://localhost:9130/_/proxy/modules/trivial
 
     request(url, function(error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -50,6 +52,7 @@ function modules_list(modules) {
 }
 
 function get_module_list(func) {
+    // curl http://localhost:9130/_/proxy/tenants/demo/modules
     var url = "http://localhost:9130/_/proxy/tenants/" + tenant + "/modules";
 
     request(url, function(error, response, body) {
