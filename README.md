@@ -67,7 +67,7 @@ $ ./bin/install.sh
 Start webpack service on port 3030:
 
 ```
-$ node src/webpackServer.js 
+$ ./bin/webpackServer.js 
 ```
 
 Open web form to generate folio UI bundle:
@@ -81,14 +81,14 @@ then fill out the forms, and press submit.
 ## Example run with GET (browser)
 
 ```
-$ node src/webpackServer.js
+$ ./bin/webpackServer.js
 ```
 
 ```
 Example app listening on http://localhost:3030
-Run shell command: env stripes_tenant="test" ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz  " ./bin/tenant-bundle.sh
+Run shell command: env stripes_tenant="test" ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz  " ./bin/tenant-bundle.sh
 Run build, may take 20-30 seconds, tenant test
-UI module: ["trivial","https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz","",""]
+UI module: ["trivial","https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz","",""]
 Webpack script is done
 AWS S3 URL: http://s3.amazonaws.com/folio-ui-bundle/tenant/test-1469456474/index.html
 ```
@@ -125,7 +125,7 @@ Location: http://s3.amazonaws.com/folio-ui-bundle/tenant/test2-1469549040/index.
 Testing on the command line:
 
 ```
-$ env tenant="test" ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz" ./bin/tenant-bundle.sh
+$ env tenant="test" ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz" ./bin/tenant-bundle.sh
 ```
 
 ## Misc
@@ -147,14 +147,14 @@ $ tenant=test module="trivial trivial-okapi" ./bin/ui-deploy.sh
 Create a tenant "demo", assign 2 modules and 2 UI modules:
 
 ```
-$ tenant="demo" modules_ui="patrons https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz" modules="trivial trivial-okapi" ./ui-deploy-demo.sh
+$ tenant="demo" modules_ui="patrons https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz" modules="trivial trivial-okapi" ./ui-deploy-demo.sh
 ```
 
 Create a bundle for UI modules for tenant "demo":
 
 ```
-$ node src/uiDescriptor.js demo 
-found ui module: https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz
+$ ./bin/uiDescriptor.js demo 
+found ui module: https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz
 found ui module: patrons
 ```
 
@@ -174,5 +174,5 @@ Other FOLIO Developer documentation is at [dev.folio.org](http://dev.folio.org/)
 
 
 --
-Index Data, Nov 2016
+Index Data, Dec 2016
 
