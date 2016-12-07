@@ -15,7 +15,6 @@ First, checkout the ```okapi-stripes``` repo from GitHub:
 
 ```
 $ git clone ssh://git@github.com/folio-org/okapi-stripes
-$ git clone ssh://git@github.com/folio-org/stripes-experiments
 ```
 
 Note: Node.js version 6.x is required for running stripes-experiments. Older Node.js 
