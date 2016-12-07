@@ -144,10 +144,10 @@ Create a tenant "test", and assign 2 UI modules:
 $ tenant=test module="trivial trivial-okapi" ./bin/ui-deploy.sh
 ```
 
-Create a tenant "demo", assign 2 modules and 2 UI modules:
+Create a tenant "demo", assign 1 module and 1 UI module:
 
 ```
-$ tenant="demo" modules_ui="patrons https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz" modules="trivial trivial-okapi" ./bin/ui-deploy-demo.sh
+$ tenant="demo" modules_ui="@folio-sample-modules/trivial" modules="trivial-okapi" ./bin/ui-deploy-demo.sh
 ```
 
 Create a bundle for UI modules for tenant "demo":
