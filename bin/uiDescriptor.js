@@ -26,9 +26,9 @@ function get_ui_modules(list, func) {
             // console.log(obj)
             if (obj.uiDescriptor) {
                 result.push(obj.uiDescriptor.url);
-                if (debug) console.log("found ui module: " + obj.uiDescriptor.url)
+                if (debug) console.log("found ui module: " + obj.name)
             } else {
-                if (debug) console.log("found non-module: " + obj.uiDescriptor.url)
+                if (debug) console.log("found non-module: " + obj.name)
             }
 
             return get_ui_modules(list, func);
