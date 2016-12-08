@@ -6,7 +6,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   entry: [
-    './src-new/index'
+    './src/index'
   ],
   resolve: {
     fallback: [
