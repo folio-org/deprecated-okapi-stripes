@@ -16,6 +16,6 @@ npm install
 
 if [ "$interactive" = "yes" ]; then
     echo ""
-    echo "now start the webpack service with: node src/webpackServer.js"
+    echo "now start the webpack service with: node ./bin/webpackServer.js"
 fi
 
