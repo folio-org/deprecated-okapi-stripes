@@ -12,7 +12,10 @@ npm config set @folio-sample-modules:registry https://repository.folio.org/repos
 
 # okapi-stripes
 npm install
-#npm install @folio/stripes-core
+
+if [ ! -e src ]; then
+    ln -s ./node_modules/@folio/stripes-core/src
+fi
 
 if [ "$interactive" = "yes" ]; then
     echo ""
