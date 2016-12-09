@@ -30,11 +30,7 @@ echo "npm  version: $(npm --version)"
 #
 #cd $dir
 #pwd 
-#if [[ $(uname -s) =~ CYGWIN.* ]]; then
-#    github_url="${github_url/\//\\}"
-#fi
-#git clone -q "$github_url"
-#cd $(basename "$github_url")
+
 
 if [ -n "$stripes_branch" ]; then
     if ! git branch | egrep -q $stripes_branch; then
@@ -101,9 +97,6 @@ done
 #if [ -d "$pwd_se/stripes-core/node_modules" ]; then
 #    rsync -a "$pwd_se/stripes-core/node_modules" stripes-core
 #fi
-#
-#cd stripes-core
-#cp $pwd/src/webpack.config.cli.tenant.js .
 
 npm install
 npm run build:tenant
