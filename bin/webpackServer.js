@@ -5,6 +5,8 @@ var app = express();
 var port = 3030;
 var bodyParser = require('body-parser')
 
+var request = require('request');
+
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // curl -H "Content-Type: application/json" 
@@ -90,6 +92,13 @@ function myapp (type, req, res) {
     ui_url = cleanup_list(req[method].url).join(" ");
   } else if (typeof req[method].url == 'string') {
     ui_url = req[method].url;
+  } else if (typeof req[method].module_type == 'string') {
+    var module_type = req[method].module_type;
+    if (module_type == 'ui') {
+        return ui_module(tenant);
+    } else{
+      return res.send(JSON.stringify({status: 503, message: 'unknown module_type: ' + module_type }));
+    }
   } else {
     return res.send(JSON.stringify({status: 503, message: 'missing url parameter' }));
   }
@@ -141,6 +150,122 @@ function myapp (type, req, res) {
     }
   });
 };
+
+/**************/
+// xxx
+var result = [];
+
+function get_ui_modules(list, func) {
+    if (!list || list.length == 0) {
+        func(result);
+        return;
+    }
+
+    var m = list.pop();
+    var url = "http://localhost:9130/_/proxy/modules/" + m;
+    // curl http://localhost:9130/_/proxy/modules/folio-sample-modules-trivial
+    // curl http://localhost:9130/_/proxy/modules/trivial
+
+    request(url, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var obj = JSON.parse(body);
+            // console.log(obj)
+            if (obj.uiDescriptor) {
+                var u = obj.uiDescriptor.url ? obj.uiDescriptor.url : obj.uiDescriptor.npm;
+                
+                result.push(u);
+                if (debug) console.log("found ui module: " + obj.name + " uri: " + u)
+            } else {
+                if (debug) console.log("found non-module: " + obj.name)
+            }
+
+            return get_ui_modules(list, func);
+        } else {
+            console.log("HTTP status for " + url + " " + response.statusCode);
+        }
+    });
+}
+
+
+// return a simple module list 
+
+
+function modules_list(modules) {
+    var list = [];
+    for (var i = 0; i < modules.length; i++) {
+        list.push(modules[i].id);
+    }
+
+    return list;
+}
+
+function get_module_list(tenant, func) {
+    // curl http://localhost:9130/_/proxy/tenants/demo/modules
+    var url = "http://localhost:9130/_/proxy/tenants/" + tenant + "/modules";
+
+    request(url, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var modules = JSON.parse(body);
+            var list = modules_list(modules);
+            
+            // filter by ui modules
+            get_ui_modules(list, func);
+
+        } else {
+            console.log("HTTP status for " + url + " " + response.statusCode);
+        }
+    })
+}
+
+function body_data(modules) {
+    var obj = {
+        url: modules
+    };
+
+    return JSON.stringify(obj);
+};
+
+function webpack_service(tenant, modules) {
+    var body = body_data(modules);
+    var url = 'http://localhost:3030/bundle';
+    // Set the headers
+    var headers = {
+        'X-Okapi-Tenant-Id': tenant,
+        'User-Agent': 'Webpack Folio UI Agent/0.1.0',
+        'Content-Type': 'application/json'
+    }
+
+    // Configure the request
+    var options = {
+        method: 'POST',
+        url: url,
+        headers: headers,
+        body: body
+    }
+
+    if (debug >= 2) console.log(options);
+
+    request(options, function(error, response, body) {
+        if (!error && response && response.statusCode == 201) {
+            console.log(response.headers.location)
+        } else {
+            if (response) {
+              console.log("HTTP status for " + url + " " + response.statusCode);
+            } else {
+              console.warn("No response, was the service on " + options.url + " started?")
+            }
+        }
+    })
+}
+
+
+function ui_module(tenant) {
+// http://localhost:9130/_/proxy/tenants/$tenant/modules
+get_module_list(tenant, function(modules) {
+    webpack_service(tenant, modules)
+});
+}
+
 
 app.listen(port, function () {
   console.log('Example app listening on http://localhost:' + port);
