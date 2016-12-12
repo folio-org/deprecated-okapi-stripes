@@ -13,8 +13,8 @@
 set -e
 
 : ${tenant="demo"}
-: ${modules_ui="trivial @folio-sample-modules/trivial-okapi"}
-: ${modules="https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz"}
+: ${modules_ui="@folio-sample-modules/trivial-okapi"}
+: ${modules="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz"}
 
 program=$(dirname $0)/ui-deploy.sh
 
