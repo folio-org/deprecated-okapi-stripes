@@ -261,9 +261,9 @@ function webpack_service(tenant, modules) {
 
 function ui_module(tenant) {
 // http://localhost:9130/_/proxy/tenants/$tenant/modules
-get_module_list(tenant, function(modules) {
-    webpack_service(tenant, modules)
-});
+  return get_module_list(tenant, function(modules) {
+      webpack_service(tenant, modules)
+  });
 }
 
 
