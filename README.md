@@ -120,6 +120,22 @@ HTTP/1.1 201 Created
 Location: http://s3.amazonaws.com/folio-ui-bundle/tenant/test2-1469549040/index.html
 ```
 
+## Example run with POST (command line) for ui-modules
+
+Or more Okapi-style with a post request:
+
+```
+$ cat etc/ui-module.json 
+{"module_type": "ui" }
+```
+    
+```
+$ curl -v -H "X-Okapi-Tenant-Id: demo" -X POST --data-binary @./etc/ui-module.json  -H "Content-Type: application/json" 'http://localhost:3030/bundle'
+HTTP/1.1 201 Created
+Location: http://s3.amazonaws.com/folio-ui-bundle/tenant/test2-1469549040/index.html
+```
+
+
 ## Testing with a shell script
 
 Testing on the command line:
