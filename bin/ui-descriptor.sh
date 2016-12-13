@@ -2,7 +2,7 @@
 
 tenant="$1"
 config=./etc/ui-module.json 
-curl_debug=	#"-v"
+curl_debug="-v"
 
 if [ -z "$tenant" ]; then
     echo "Usage $0 tenant"

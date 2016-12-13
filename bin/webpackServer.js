@@ -89,16 +89,19 @@ function myapp (type, req, res) {
   
   var ui_url;
   if (typeof req[method].url == 'object') {
-    ui_url = cleanup_list(req[method].url).join(" ");
+      ui_url = cleanup_list(req[method].url).join(" ");
   } else if (typeof req[method].url == 'string') {
-    ui_url = req[method].url;
+      ui_url = req[method].url;
   } else if (typeof req[method].module_type == 'string') {
+    
     var module_type = req[method].module_type;
     if (module_type == 'ui') {
+        // we do not have the URLs yet. 
         return ui_module(tenant, res);
     } else{
       return res.send(JSON.stringify({status: 503, message: 'unknown module_type: ' + module_type }));
     }
+    
   } else {
     return res.send(JSON.stringify({status: 503, message: 'missing url parameter' }));
   }
@@ -199,7 +202,7 @@ function modules_list(modules) {
     return list;
 }
 
-function get_module_list(tenant, func) {
+function get_module_list(tenant, func, res) {
     // curl http://localhost:9130/_/proxy/tenants/demo/modules
     var url = "http://localhost:9130/_/proxy/tenants/" + tenant + "/modules";
 
@@ -212,7 +215,8 @@ function get_module_list(tenant, func) {
             get_ui_modules(list, func);
 
         } else {
-            console.log("HTTP status for " + url + " " + response.statusCode);
+            console.log("HTTPs status for " + url + " " + response.statusCode);
+            return res.send(JSON.stringify({status: 503, message: 'internal error' }));
         }
     })
 }
@@ -262,16 +266,17 @@ function webpack_service(tenant, modules, res) {
             } else {
               console.warn("No response, was the service on " + options.url + " started?")
             }
+            return res.send(JSON.stringify({status: 503, message: 'internal error' }));
         }
     })
 }
 
 
 function ui_module(tenant, res) {
-// http://localhost:9130/_/proxy/tenants/$tenant/modules
+  // http://localhost:9130/_/proxy/tenants/$tenant/modules
   return get_module_list(tenant, function(modules) {
       webpack_service(tenant, modules, res)
-  });
+  }, res);
 }
 
 
