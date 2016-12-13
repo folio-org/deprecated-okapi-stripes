@@ -149,7 +149,7 @@ $ env tenant="test" ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tar
 AWS S3 supports both HTTP and HTTPS. We are using HTTP URLs to enable
 access to a local running okapi instance on localhost:9130
 
-## uiDescriptor
+## UI Descriptor
 
 Note: to run the following examples, an okapi service must be running
 on the same machine: ```cd okapi; mvn install; mvn exec:exec'''
