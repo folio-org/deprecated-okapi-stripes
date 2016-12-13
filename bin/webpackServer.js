@@ -18,7 +18,7 @@ var exec = require('child_process').exec;
 
 var cache = {};
 var error = {}; // global error object
-var debug = 1;
+var debug = 2;
 
 app.get('/', function (req, res) {
   // res.send("Please use http://localhost:" + port + "/bundle?tenant=tenant&url=module1&url=module2 ...\n");
@@ -95,7 +95,7 @@ function myapp (type, req, res) {
   } else if (typeof req[method].module_type == 'string') {
     var module_type = req[method].module_type;
     if (module_type == 'ui') {
-        return ui_module(tenant);
+        return ui_module(tenant, res);
     } else{
       return res.send(JSON.stringify({status: 503, message: 'unknown module_type: ' + module_type }));
     }
@@ -225,7 +225,7 @@ function body_data(modules) {
     return JSON.stringify(obj);
 };
 
-function webpack_service(tenant, modules) {
+function webpack_service(tenant, modules, res) {
     var body = body_data(modules);
     var url = 'http://localhost:3030/bundle';
     // Set the headers
@@ -246,8 +246,16 @@ function webpack_service(tenant, modules) {
     if (debug >= 2) console.log(options);
 
     request(options, function(error, response, body) {
+      
         if (!error && response && response.statusCode == 201) {
-            console.log(response.headers.location)
+            var location = response.headers.location
+            if (debug >= 2) console.log("result location: " + location)
+            
+            // push the results back
+            res.location(location);
+            res.status(201);
+            res.send("");
+            
         } else {
             if (response) {
               console.log("HTTP status for " + url + " " + response.statusCode);
@@ -259,10 +267,10 @@ function webpack_service(tenant, modules) {
 }
 
 
-function ui_module(tenant) {
+function ui_module(tenant, res) {
 // http://localhost:9130/_/proxy/tenants/$tenant/modules
   return get_module_list(tenant, function(modules) {
-      webpack_service(tenant, modules)
+      webpack_service(tenant, modules, res)
   });
 }
 
