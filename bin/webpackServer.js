@@ -18,7 +18,7 @@ var exec = require('child_process').exec;
 
 var cache = {};
 var error = {}; // global error object
-var debug = 2;
+var debug = 1;
 
 app.get('/', function (req, res) {
   // res.send("Please use http://localhost:" + port + "/bundle?tenant=tenant&url=module1&url=module2 ...\n");
