@@ -169,9 +169,8 @@ $ tenant="demo" modules_ui="@folio-sample-modules/trivial https://s3.amazonaws.c
 Create a bundle for UI modules for tenant "demo":
 
 ```
-$ ./bin/uiDescriptor.js demo 
-found ui module: https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz
-found ui module: patrons
+$ ./bin/ui-descriptor.sh demo
+Location: http://s3.amazonaws.com/folio-ui-bundle/tenant/demo-1481633425/index.html
 ```
 
 ## Troubleshooting
