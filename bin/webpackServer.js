@@ -67,7 +67,7 @@ function cleanup_list(list) {
   return _list;
 }
 
-function myapp (type, req, res) {
+function myapp (type, req, res, url) {
   var method = type == 'get' ? 'query' : 'body';
 
   // GET requests read the tenant from an URL parameter, okapi POST requests from HTTP header  
@@ -88,16 +88,22 @@ function myapp (type, req, res) {
   //console.log(req.body);
   
   var ui_url;
-  if (typeof req[method].module_type == 'string' && req[method].module_type != '') {
+  if (url) {
+    ur_url = cleanup_list(req[method].url).join(" ");
+  }
+ 
+  // UI modules 
+  else if (typeof req[method].module_type == 'string' && req[method].module_type != '') {
     
     var module_type = req[method].module_type;
     if (module_type == 'ui') {
         // we do not have the URLs yet. 
-        return ui_module(tenant, res);
+        return ui_module(tenant, {"type": type, "req": req, "res": res});
     } else{
       return res.send(JSON.stringify({status: 503, message: 'unknown module_type: ' + module_type }));
     }
   }
+  
   // array
   else  if (typeof req[method].url == 'object') {
       ui_url = cleanup_list(req[method].url).join(" ");
@@ -277,13 +283,13 @@ function webpack_service(tenant, modules, res) {
 }
 
 
-function ui_module(tenant, res) {
+function ui_module(tenant, obj) {
   if (debug >= 1) console.log("Fetch UI module list for tenant: " + tenant)
   
   // http://localhost:9130/_/proxy/tenants/$tenant/modules
   return get_module_list(tenant, function(modules) {
-      webpack_service(tenant, modules, res)
-  }, res);
+      webpack_service(tenant, modules, obj.res)
+  }, obj.res);
 }
 
 
