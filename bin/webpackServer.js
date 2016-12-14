@@ -243,48 +243,6 @@ function body_data(modules) {
     return JSON.stringify(obj);
 };
 
-function webpack_service(tenant, modules, res) {
-    var body = body_data(modules);
-    var url = 'http://localhost:3030/bundle';
-    // Set the headers
-    var headers = {
-        'X-Okapi-Tenant-Id': tenant,
-        'User-Agent': 'Webpack Folio UI Agent/0.1.0',
-        'Content-Type': 'application/json'
-    }
-
-    // Configure the request
-    var options = {
-        method: 'POST',
-        url: url,
-        headers: headers,
-        body: body
-    }
-
-    if (debug >= 2) console.log(options);
-
-    request(options, function(error, response, body) {
-      
-        if (!error && response && response.statusCode == 201) {
-            var location = response.headers.location
-            if (debug >= 2) console.log("result location: " + location)
-            
-            // push the results back
-            res.location(location);
-            res.status(201);
-            res.send("");
-            
-        } else {
-            if (response) {
-              console.log("HTTP status for " + url + " " + response.statusCode);
-            } else {
-              console.warn("No response, was the service on " + options.url + " started?")
-            }
-            return res.send(JSON.stringify({status: 503, message: 'internal error' }));
-        }
-    })
-}
-
 
 function ui_module(tenant, obj) {
   if (debug >= 1) console.log("Fetch UI module list for tenant: " + tenant)
