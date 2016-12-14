@@ -18,7 +18,7 @@ var exec = require('child_process').exec;
 
 var cache = {};
 var error = {}; // global error object
-var debug = 1;
+var debug = 2;
 
 app.get('/', function (req, res) {
   // res.send("Please use http://localhost:" + port + "/bundle?tenant=tenant&url=module1&url=module2 ...\n");
@@ -88,11 +88,7 @@ function myapp (type, req, res) {
   //console.log(req.body);
   
   var ui_url;
-  if (typeof req[method].url == 'object') {
-      ui_url = cleanup_list(req[method].url).join(" ");
-  } else if (typeof req[method].url == 'string') {
-      ui_url = req[method].url;
-  } else if (typeof req[method].module_type == 'string') {
+  if (typeof req[method].module_type == 'string' && req[method].module_type != '') {
     
     var module_type = req[method].module_type;
     if (module_type == 'ui') {
@@ -101,7 +97,16 @@ function myapp (type, req, res) {
     } else{
       return res.send(JSON.stringify({status: 503, message: 'unknown module_type: ' + module_type }));
     }
-    
+  }
+  // array
+  else  if (typeof req[method].url == 'object') {
+      ui_url = cleanup_list(req[method].url).join(" ");
+  }
+ 
+  // single value 
+  else if (typeof req[method].url == 'string') {
+      ui_url = req[method].url;
+  
   } else {
     return res.send(JSON.stringify({status: 503, message: 'missing url parameter' }));
   }
@@ -273,6 +278,8 @@ function webpack_service(tenant, modules, res) {
 
 
 function ui_module(tenant, res) {
+  if (debug >= 1) console.log("Fetch UI module list for tenant: " + tenant)
+  
   // http://localhost:9130/_/proxy/tenants/$tenant/modules
   return get_module_list(tenant, function(modules) {
       webpack_service(tenant, modules, res)

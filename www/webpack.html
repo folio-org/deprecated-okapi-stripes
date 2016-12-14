@@ -9,12 +9,21 @@
     <div id='root'>
       <form action="/bundle" method="get">
 	Tenant: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
-		<input size="40" type="text" name="tenant" value="test"/> </br>
+		<input size="40" type="text" name="tenant" value="demo"/> </br>
 	UI Module1: <input size="60" type="text" name="url" value="@folio-sample-modules/trivial" /> </br>
-	UI Module2: <input size="60" type="text" name="url" value="@folio-sample-modules/trivial-okapi" /> </br>
+	UI Module2: <input size="60" type="text" name="url" value="" /> </br>
 	UI Module3: <input size="60" type="text" name="url" value="" /> </br>
 	UI Module4: <input size="60" type="text" name="url" /> </br>
-
+  
+	<p>
+	  UI modules by tenant:
+	  <select name="module_type">
+	    <option value="">none</option>
+	    <option value="ui">ui</option>
+	    <option value="non-ui">non-ui</option>
+	  </select>
+	</p>
+	
 	<p>
         <input type="submit" value="Submit" onclick='spinning_wheel();'/>
 	<span id="spinning_wheel" style="display:none">
