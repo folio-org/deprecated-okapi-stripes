@@ -67,7 +67,7 @@ function cleanup_list(list) {
   return _list;
 }
 
-function myapp (type, req, res, url) {
+function myapp (type, req, res, modules) {
   var method = type == 'get' ? 'query' : 'body';
 
   // GET requests read the tenant from an URL parameter, okapi POST requests from HTTP header  
@@ -88,34 +88,37 @@ function myapp (type, req, res, url) {
   //console.log(req.body);
   
   var ui_url;
-  if (url) {
-    ur_url = cleanup_list(req[method].url).join(" ");
+  
+  // got the list of UI modules from okapi service
+  if (modules) {
+    ui_url = cleanup_list(modules).join(" ");
   }
  
-  // UI modules 
+  // UI modules config
   else if (typeof req[method].module_type == 'string' && req[method].module_type != '') {
     
     var module_type = req[method].module_type;
     if (module_type == 'ui') {
-        // we do not have the URLs yet. 
+        // we do not have the URL/modules yet. Fetch them, and call back ourself again
         return ui_module(tenant, {"type": type, "req": req, "res": res});
     } else{
       return res.send(JSON.stringify({status: 503, message: 'unknown module_type: ' + module_type }));
     }
   }
   
-  // array
+  // URL array
   else  if (typeof req[method].url == 'object') {
       ui_url = cleanup_list(req[method].url).join(" ");
   }
  
-  // single value 
+  // URL single value 
   else if (typeof req[method].url == 'string') {
       ui_url = req[method].url;
   
   } else {
     return res.send(JSON.stringify({status: 503, message: 'missing url parameter' }));
   }
+  
   
   var command = 'env stripes_tenant="' + tenant + '"' + ' ui_url="' + ui_url;
   command += '" ./bin/tenant-bundle.sh';
@@ -133,7 +136,7 @@ function myapp (type, req, res, url) {
     
     if (debug >= 1) {
       console.log('Run build, may take 20-30 seconds, tenant ' + tenant);
-      console.log('UI module: ' + JSON.stringify(cleanup_list(req[method].url)))
+      console.log('UI module: ' + JSON.stringify(ui_url));
     }
     
     if (debug >= 1) {
@@ -288,7 +291,9 @@ function ui_module(tenant, obj) {
   
   // http://localhost:9130/_/proxy/tenants/$tenant/modules
   return get_module_list(tenant, function(modules) {
-      webpack_service(tenant, modules, obj.res)
+      // webpack_service(tenant, modules, obj.res)
+      // we have now the module list. Call back ourself
+      myapp(obj.type, obj.req, obj.res, modules)
   }, obj.res);
 }
 
