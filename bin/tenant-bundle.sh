@@ -62,6 +62,7 @@ fi
 # main
 #
 # add new UI module to bundle
+folio_modules=""
 for url in $ui_url
 do 
     # a directory, just copy
@@ -84,7 +85,7 @@ do
             )
         else
             if echo $url | egrep -q -i '^@folio-'; then
-                npm install $url
+                folio_modules="$folio_modules $url"
             else
                 echo "illegal URL: $url"
                 exit 1
@@ -92,6 +93,11 @@ do
         fi
     fi
 done
+
+# install folio modules in one step
+if [ -n "$folio_modules" ]; then
+    npm install $folio_modules
+fi
 
 ## re-use installed node_modules
 #if [ -d "$pwd_se/stripes-core/node_modules" ]; then
