@@ -219,6 +219,7 @@ function modules_list(modules) {
 function get_module_list(tenant, func, res) {
     // curl http://localhost:9130/_/proxy/tenants/demo/modules
     var url = "http://localhost:9130/_/proxy/tenants/" + tenant + "/modules";
+    result = [];
 
     request(url, function(error, response, body) {
         if (!error && response.statusCode == 200) {
