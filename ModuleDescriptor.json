@@ -9,7 +9,7 @@
     "methods" : [ "POST" ],
     "path" : "/bundle",
     "level" : "30",
-    "type" : "request-response",
-  } ],
+    "type" : "request-response"
+  } ]
 }
 
