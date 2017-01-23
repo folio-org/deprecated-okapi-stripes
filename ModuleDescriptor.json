@@ -1,0 +1,15 @@
+{
+  "id" : "okapi-stripes",
+  "name" : "okapi stripes bundler",
+  "provides" : [ {
+    "id" : "okapi-stripes",
+    "version" : "1.0.0"
+  } ],
+  "routingEntries" : [ {
+    "methods" : [ "POST" ],
+    "path" : "/bundle",
+    "level" : "30",
+    "type" : "request-response",
+  } ],
+}
+
