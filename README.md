@@ -1,6 +1,6 @@
 # okapi-stripes
 
-Copyright (C) 2016-2017 The Open Library Foundation
+Copyright (C) 2017 The Open Library Foundation
 
 This software is distributed under the terms of the Apache License,
 Version 2.0. See the file "[LICENSE](LICENSE)" for more information.
@@ -14,7 +14,7 @@ Okapi integrated service that generates static UI assets (JS/HTML/CSS) from Stri
 First, checkout the ```okapi-stripes``` repo from GitHub:
 
 ```
-$ git clone ssh://git@github.com/folio-org/okapi-stripes
+$ git clone https://github.com/folio-org/okapi-stripes.git
 ```
 
 Note: Node.js version 6.x is required for running stripes-experiments. Older Node.js 
