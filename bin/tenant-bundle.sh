@@ -96,7 +96,7 @@ done
 
 # install folio modules in one step
 if [ -n "$folio_modules" ]; then
-    yarn install $folio_modules
+    yarn add $folio_modules
 fi
 
 ## re-use installed node_modules
