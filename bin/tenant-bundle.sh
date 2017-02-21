@@ -19,8 +19,8 @@ aws_url="http://s3.amazonaws.com/$aws_s3_path"
 : ${stripes_awscli=true}
 
 
-echo "node version: $(node --version)"
-echo "npm  version: $(npm --version)"
+echo "node version:  $(node --version)"
+echo "yarn  version: $(yarn --version)"
 
 #tmp=/tmp
 #if [ -n "$TMPDIR" ]; then
@@ -69,7 +69,7 @@ do
     if [ -d "$url" ]; then
         if echo $url | egrep -q -i '^[a-z0-9_-]+$'; then
             rsync -a $url dev
-            ( cd $(basename $url) && pwd && npm install )
+            ( cd $(basename $url) && pwd && yarn install )
         else
             echo "illegal directory path: [A-Za-z0-9_-]: $url"
             exit 1
@@ -81,7 +81,7 @@ do
             ( cd dev
             wget -q $url
             tar $tar_opt -xzf $(basename $url) '[a-zA-Z0-9]*'
-            (cd $(basename $url .tgz) && npm install )
+            (cd $(basename $url .tgz) && yarn install )
             )
         else
             if echo $url | egrep -q -i '^@folio-'; then
@@ -96,7 +96,7 @@ done
 
 # install folio modules in one step
 if [ -n "$folio_modules" ]; then
-    npm install $folio_modules
+    yarn install $folio_modules
 fi
 
 ## re-use installed node_modules
@@ -104,8 +104,8 @@ fi
 #    rsync -a "$pwd_se/stripes-core/node_modules" stripes-core
 #fi
 
-npm install
-npm run build:tenant
+yarn install
+yarn run build:tenant
 
 cp www/index.html $bundle_path
 rsync -a static $bundle_path

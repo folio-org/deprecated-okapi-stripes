@@ -6,12 +6,12 @@ set -e
 : ${interactive="yes"}
 
 # configure ~/.npmrc to use indexdata npm repo for FOLIO
-npm config set @folio:registry https://repository.folio.org/repository/npm-folio/
-npm config set @folio-sample-modules:registry https://repository.folio.org/repository/npm-folio/
+yarn config set @folio:registry https://repository.folio.org/repository/npm-folio/
+yarn config set @folio-sample-modules:registry https://repository.folio.org/repository/npm-folio/
 
 
 # okapi-stripes
-npm install
+yarn install
 
 if [ ! -e src ]; then
     ln -s ./node_modules/@folio/stripes-core/src
