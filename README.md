@@ -20,8 +20,6 @@ $ git clone https://github.com/folio-org/okapi-stripes.git
 Note: Node.js version 6.x is required for running stripes-experiments. Older Node.js 
 versions are likely to fail due to changes in react/redux
 
-Please use npm version 3.x or higher. The older npm 2.x is much slower and downloads
-many more files.
 
 ### macOS
 
@@ -32,7 +30,9 @@ $ brew install node
 ### Debian
 
 Go to https://nodejs.org/en/download/current/ and download the Linux Binaries. Extract the
-archive, and symlink the programs "node" and "npm" to /usr/local/bin
+archive, and symlink the programs "node" /usr/local/bin
+
+To install yarn, see https://yarnpkg.com/lang/en/docs/install/#linux
 
 ### MS Windows
 
@@ -175,7 +175,7 @@ Location: http://s3.amazonaws.com/folio-ui-bundle/tenant/demo-1481633425/index.h
 
 ## Troubleshooting
 
-To cleanup local npm modules, run:
+To cleanup local yarn modules, run:
 
 ```
 $ ./bin/clean.sh
