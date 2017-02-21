@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "@folio-sample-modules/trivial": "^0.0.2-test",
-    "@folio/stripes-core": "*",
+    "@folio/stripes-core": "0.0.9-test",
     "babel-preset-stage-0": "^6.16.0",
     "body-parser": "^1.15.2",
     "cross-env": "3.1.3",
