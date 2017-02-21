@@ -12,7 +12,8 @@
     "eslint": "^2.*",
     "eslint-plugin-import": "^1.4.0",
     "express": "^4.14.1",
-    "markdown-it": "7.0.1"
+    "markdown-it": "7.0.1",
+    "request": "^2.79.0"
   },
   "devDependencies": {},
   "scripts": {
