@@ -1,10 +1,13 @@
 {
-  "name": "okapi-stripes",
+  "name": "@folio/okapi-stripes",
   "version": "1.0.0",
   "description": "webpack service",
   "main": "index.js",
+  "publishConfig": {
+    "registry": "https://repository.folio.org/repository/npm-folio/"
+  },
   "dependencies": {
-    "@folio-sample-modules/trivial": "^0.0.2-test",
+    "@folio/trivial": "^0.0.2-test",
     "@folio/stripes-core": "0.0.9-test",
     "babel-preset-stage-0": "^6.16.0",
     "body-parser": "^1.15.2",
