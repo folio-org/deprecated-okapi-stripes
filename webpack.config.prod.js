@@ -12,13 +12,9 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
-    /* new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false
-      }
-    }),
-    */
+    
     new ExtractTextPlugin({filename: "global.css", allChunks: true }),
+    
     new CopyWebpackPlugin([
       { from:bootstrapDist, to:'bootstrap'},
       { from: path.join(__dirname, 'index.html'), to:'index.html'},
