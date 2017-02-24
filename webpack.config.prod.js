@@ -18,9 +18,7 @@ module.exports = {
       }
     }),
     */
-    new ExtractTextPlugin("global.css", {
-      allChunks: true
-    }),
+    new ExtractTextPlugin({filename: "global.css", allChunks: true }),
     new CopyWebpackPlugin([
       { from:"node_modules/bootstrap/dist", to:"bootstrap"},
     ])
