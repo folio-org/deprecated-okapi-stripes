@@ -2,10 +2,6 @@
 # yarn lockfile v1
 
 
-"@folio-sample-modules/trivial@^0.0.2-test":
-  version "0.0.2-test"
-  resolved "https://repository.folio.org/repository/npm-folio/@folio-sample-modules/trivial/-/trivial-0.0.2-test.tgz#2b793a6e01b60b6a9fcb15d8fc757c6e00ae6fa4"
-
 "@folio/stripes-components@^0.0.1-test":
   version "0.0.1-test"
   resolved "https://repository.folio.org/repository/npm-folio/@folio/stripes-components/-/stripes-components-0.0.1-test.tgz#25fd9bbe458e1397b57d53ce4bc0af29e990c856"
@@ -23,7 +19,7 @@
     redux-crud "^3.0.0"
     uuid "^3.0.1"
 
-"@folio/stripes-core@0.0.9-test":
+"@folio/stripes-core@^0.0.9-test":
   version "0.0.9-test"
   resolved "https://repository.folio.org/repository/npm-folio/@folio/stripes-core/-/stripes-core-0.0.9-test.tgz#f1b4c7a07d66423375cba2b05e4d5d53d0d999d3"
   dependencies:
@@ -77,6 +73,10 @@
   dependencies:
     exval "^0.1.0"
     lodash "^4.16.3"
+
+"@folio/trivial@^0.0.2-test":
+  version "0.0.2-test"
+  resolved "https://repository.folio.org/repository/npm-folio/@folio/trivial/-/trivial-0.0.2-test.tgz#33794a6d33e2b67f82c813d5a0b8fc829b6683d0"
 
 abbrev@1:
   version "1.1.0"
