@@ -20,7 +20,8 @@ module.exports = {
     */
     new ExtractTextPlugin({filename: "global.css", allChunks: true }),
     new CopyWebpackPlugin([
-      { from:"node_modules/bootstrap/dist", to:"bootstrap"},
+      { from:bootstrapDist, to:'bootstrap'},
+      { from: path.join(__dirname, 'index.html'), to:'index.html'},
     ])
   ]
 };
