@@ -6,7 +6,11 @@
   "publishConfig": {
     "registry": "https://repository.folio.org/repository/npm-folio/"
   },
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "dependencies": {
+    "@folio-sample-modules/trivial": "^0.0.2-test",
     "@folio/stripes-core": "^0.0.9-test",
     "@folio/trivial": "^0.0.2-test",
     "babel-preset-stage-0": "^6.16.0",
