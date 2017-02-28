@@ -90,7 +90,7 @@ if [ -n "$folio_modules" ]; then
     ( cd .; yarn add $folio_modules )
 fi
 
-(cd dev; ../node_modules/@folio/stripes-core/stripes.js build stripes.config.js ../$bundle_path )
+(cd dev; time ../node_modules/@folio/stripes-core/stripes.js build stripes.config.js ../$bundle_path )
 cp www/index.html $bundle_path
 
 if ! $stripes_awscli; then
