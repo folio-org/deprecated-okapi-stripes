@@ -87,7 +87,7 @@ done
 
 # install folio modules in one step
 if [ -n "$folio_modules" ]; then
-    (cd dev; yarn add $folio_modules )
+    ( cd .; yarn add $folio_modules )
 fi
 
 (cd dev; ../node_modules/@folio/stripes-core/stripes.js build stripes.config.js ../$bundle_path )
