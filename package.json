@@ -13,12 +13,12 @@
     "@folio/stripes-core": "^0.0.9-test",
     "@folio/trivial": "^0.0.2-test",
     "@folio/users": "^0.0.1-test",
-    "webpack": "^2.2.0",
-    "extract-text-webpack-plugin": "^2.0.0",
     "body-parser": "^1.16.1",
     "express": "^4.14.1",
+    "extract-text-webpack-plugin": "^2.0.0",
     "markdown-it": "7.0.1",
-    "request": "^2.79.0"
+    "request": "^2.79.0",
+    "webpack": "^2.2.0"
   },
   "devDependencies": {},
   "scripts": {
