@@ -1,6 +1,6 @@
 {
   "name": "@folio/okapi-stripes",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "webpack service",
   "main": "index.js",
   "publishConfig": {
@@ -10,11 +10,7 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "@folio-sample-modules/trivial": "^0.0.2-test",
     "@folio/stripes-core": "^0.0.9-test",
-    "@folio/trivial": "^0.0.2-test",
-    "babel-preset-stage-0": "^6.16.0",
-    "body-parser": "^1.15.2",
     "cross-env": "3.1.3",
     "eslint": "^2.*",
     "eslint-plugin-import": "^1.4.0",
@@ -26,9 +22,6 @@
   "devDependencies": {},
   "scripts": {
     "clean": "rimraf static",
-    "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.cli.prod.js",
-    "build:tenant": "cross-env NODE_ENV=production webpack --config webpack.config.cli.prod.js",
-    "build": "npm run clean && npm run build:webpack",
     "start": "node devServer.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
