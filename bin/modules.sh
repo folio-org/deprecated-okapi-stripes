@@ -21,6 +21,7 @@ cat <<EOF;
 
 module.exports = {
   okapi: { 'url':'http://localhost:9130', 'tenant':'test' },
+  config: { reduxLog: true, disableAuth: true },
   modules: {
 	$data
   }
