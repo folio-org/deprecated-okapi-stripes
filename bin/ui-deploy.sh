@@ -5,13 +5,13 @@
 #
 # e.g.:
 #
-# $ tenant=test modules="trivial @folio-sample-modules/trivial-okapi" ./ui-deploy.sh
+# $ tenant=test modules="trivial @folio/trivial-okapi" ./ui-deploy.sh
 #
 
 set -e
 
 : ${tenant="test"}
-: ${modules="trivial @folio-sample-modules/trivial-okapi https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz"}
+: ${modules="trivial @folio/trivial-okapi https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz"}
 : ${is_ui_module=true}
 
 curl='curl -sSf'

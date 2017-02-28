@@ -180,7 +180,7 @@ function get_ui_modules(list, func) {
 
     var m = list.pop();
     var url = "http://localhost:9130/_/proxy/modules/" + m;
-    // curl http://localhost:9130/_/proxy/modules/folio-sample-modules-trivial
+    // curl http://localhost:9130/_/proxy/modules/folio-trivial
     // curl http://localhost:9130/_/proxy/modules/trivial
 
     request(url, function(error, response, body) {
