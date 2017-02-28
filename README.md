@@ -87,7 +87,7 @@ $ ./bin/webpackServer.js
 ```
 Example app listening on http://localhost:3030
 Run shell command: env stripes_tenant="test" ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz  " ./bin/tenant-bundle.sh
-Run build, may take 20-30 seconds, tenant test
+Run build, may take 7-15 seconds, tenant test
 UI module: ["trivial","https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz","",""]
 Webpack script is done
 AWS S3 URL: http://s3.amazonaws.com/folio-ui-bundle/tenant/test-1469456474/index.html
@@ -99,7 +99,7 @@ In your browser:
 open http://localhost:3030
 ```
 
-and after 20-30 seconds you should get the result as:
+and after 7-15 seconds you should get the result as:
 
 ```
 {"status":201,"url":"http://s3.amazonaws.com/folio-ui-bundle/tenant/test-1469456474/index.html"}
