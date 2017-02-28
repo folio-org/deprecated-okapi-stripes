@@ -12,7 +12,7 @@ pwd_se="$(pwd)"
 aws_url="http://s3.amazonaws.com/$aws_s3_path"
 
 #: ${ui_url="https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-okapi.tgz"}
-: ${ui_url="@folio-sample-modules/trivial"}
+: ${ui_url="@folio/trivial"}
 : ${stripes_branch=""}
 : ${stripes_tenant="carl"}
 : ${stripes_debug=false}
