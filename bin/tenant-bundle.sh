@@ -22,16 +22,6 @@ aws_url="http://s3.amazonaws.com/$aws_s3_path"
 echo "node version:  $(node --version)"
 echo "yarn  version: $(yarn --version)"
 
-#tmp=/tmp
-#if [ -n "$TMPDIR" ]; then
-#    tmp=$TMPDIR
-#fi
-#dir=$(mktemp -d $tmp/stripe.XXXXXXXX)
-#
-#cd $dir
-#pwd 
-
-
 if [ -n "$stripes_branch" ]; then
     if ! git branch | egrep -q $stripes_branch; then
         git checkout -b $stripes_branch origin/$stripes_branch
@@ -84,7 +74,7 @@ do
             (cd $(basename $url .tgz) && yarn install )
             )
         else
-            if echo $url | egrep -q -i '^@folio-'; then
+            if echo $url | egrep -q -i '^@folio/'; then
                 folio_modules="$folio_modules $url"
             else
                 echo "illegal URL: $url"
@@ -94,21 +84,14 @@ do
     fi
 done
 
+
 # install folio modules in one step
 if [ -n "$folio_modules" ]; then
-    yarn add $folio_modules
+    (cd dev; yarn add $folio_modules )
 fi
 
-## re-use installed node_modules
-#if [ -d "$pwd_se/stripes-core/node_modules" ]; then
-#    rsync -a "$pwd_se/stripes-core/node_modules" stripes-core
-#fi
-
-yarn install
-yarn run build:tenant
-
+(cd dev; ../node_modules/@folio/stripes-core/stripes.js build stripes.config.js ../$bundle_path )
 cp www/index.html $bundle_path
-rsync -a static $bundle_path
 
 if ! $stripes_awscli; then
     echo "No AWS S3 upload, see $(pwd)/$bundle_path/index.html"
