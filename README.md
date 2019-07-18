@@ -5,6 +5,8 @@ Copyright (C) 2017 The Open Library Foundation
 This software is distributed under the terms of the Apache License,
 Version 2.0. See the file "[LICENSE](LICENSE)" for more information.
 
+**NOTE**: Deprecated old proof-of-concept. [FOLIO-2173](https://issues.folio.org/browse/FOLIO-2173)
+
 ## Introduction
 
 Okapi integrated service that generates static UI assets (JS/HTML/CSS) from Stripes modules and metadata.
